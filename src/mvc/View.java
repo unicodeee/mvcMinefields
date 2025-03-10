@@ -1,7 +1,5 @@
 package mvc;
 
-import stopLight.Stoplight;
-
 import javax.swing.*;
 
 public class View extends JPanel implements Subscriber {

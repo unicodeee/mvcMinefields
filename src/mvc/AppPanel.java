@@ -11,7 +11,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
     protected AppFactory factory;
     protected View view;
     protected JPanel controlPanel;
-    //protected Command edit;
+    protected Command edit;
     private JFrame frame;
     public static int FRAME_WIDTH = 500;
     public static int FRAME_HEIGHT = 300;
@@ -23,7 +23,6 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         controlPanel = new JPanel();
         model = factory.makeModel();
         view = factory.makeView(model);
-        //edit = factory.makeEditCommand(model, "Edit", this);
         this.setLayout((new GridLayout(1, 2)));
         this.add(controlPanel);
         this.add(view);
@@ -93,7 +92,9 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
             } else { // must be from Edit menu
-                //edit.execute();//???
+                Command command = factory.makeEditCommand(model, cmmd, ae.getSource());
+                command.execute();//???
+                repaint();
             }
         } catch (Exception e) {
             handleException(e);
