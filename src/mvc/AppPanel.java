@@ -92,10 +92,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
                 Utilities.inform(factory.about());
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
-            } else if (cmmd.equals("Change")) {
-
-            }
-            else { // must be from Edit menu
+            } else { // must be from Edit menu
                 //edit.execute();//???
             }
         } catch (Exception e) {
