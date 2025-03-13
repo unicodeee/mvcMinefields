@@ -9,7 +9,6 @@ public class MineFieldPanel extends AppPanel {
         super(factory);
     }
 
-
     public static void main(String[] args) {
         MineFieldFactory factory = new MineFieldFactory();
         MineFieldPanel panel = new MineFieldPanel(factory);
