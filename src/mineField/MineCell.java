@@ -1,7 +1,6 @@
 package mineField;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public class MineCell {
 
@@ -30,13 +29,9 @@ public class MineCell {
     }
 
     public void draw(Graphics2D gc) {
-        Color oldColor = gc.getColor();
-        gc.setColor(Color.GRAY);
         gc.fillRect(xc, yc, height, height);
         gc.setColor(Color.BLACK);
         gc.drawRect(xc, yc, height, height);
-
-        gc.setColor(oldColor);
     }
 
 

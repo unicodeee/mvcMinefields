@@ -6,39 +6,52 @@ import java.awt.*;
 
 public class MineFieldView extends View {
 
-
-    private int eachCellSize = 10;
+    private final int eachCellSize = 10;
 
     public MineFieldView(MineField mineField) {
         super(mineField);
     }
 
-//    public drawCellAtCordinates(Point point){
-//        MineCell cell = new MineCell(mineField, tempt + i* eachCellSize, j * eachCellSize, eachCellSize);
-//        cell.draw((Graphics2D) gc);
-//    }
-
-    public void paintComponent(Graphics gc) { // TO DO
-        super.paintComponent(gc);
-        Color oldColor = gc.getColor();
+    public void drawCellAtCordinates(Graphics gc, Point point, Color color){
         MineField mineField = (MineField) model;
+        gc.setColor(color);
+        MineCell cell = new MineCell(mineField, point.x * eachCellSize, point.y * eachCellSize, eachCellSize);
+        cell.draw((Graphics2D) gc);
+    }
 
-
+    public void drawMineBoard(Graphics gc, Color color){
+        MineField mineField = (MineField) model;
         int boardSize = mineField.getGridViewSize() + 1;
 
         for (int i = 1; i < boardSize; i++) {
             for (int j = 1; j < boardSize; j++) {
-                MineCell cell = new MineCell(mineField, i* eachCellSize, j * eachCellSize, eachCellSize);
-                cell.draw((Graphics2D) gc);
+                drawCellAtCordinates(gc, new Point(i, j), color);
             }
         }
+    }
 
-        if (mineField.steppedOnMine()) {
-
+    public void drawMines(Graphics gc, Color color){
+        MineField mineField = (MineField) model;
+        for (Point mineCordinates: mineField.getMines()) {
+            drawCellAtCordinates(gc, mineCordinates, color);
         }
+    }
+
+    public void paintComponent(Graphics gc) { // TO DO
+        super.paintComponent(gc);
+        MineField mineField = (MineField) model;
+
+        Color cellBaseColor = mineField.getColor();
+        Color mineColor = mineField.getMineColor();
+        drawMineBoard(gc, cellBaseColor);
+
 
         // TO DO: condition here to handle display bomb
+        if (mineField.didStepOnMine()) {
+            drawMines(gc, mineColor);
+        }
 
-        gc.setColor(oldColor);
+//        drawCellAtCordinates(gc, new Point(20, 20), Color.GREEN); // DEBUG: use this to debug mine cell
+
     }
 }
