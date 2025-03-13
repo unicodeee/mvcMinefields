@@ -5,19 +5,20 @@ import java.awt.*;
 public class MineCell {
 
     private MineField mineField;
-    private int height, xc, yc;
+    private int size, xc, yc;
+    private Point point;
 
-
-    public MineCell(MineField mineField, int xc, int yc, int height) {
+    public MineCell(MineField mineField, Point point, int size) {
         this.mineField = mineField;
-        this.height = height;
-        this.xc = xc;
-        this.yc = yc;
+        this.size = size;
+        this.point = point;
+        this.xc = point.x * size;
+        this.yc = point.y * size;
     }
 
 
-    public int getHeight() {
-        return height;
+    public int getSize() {
+        return size;
     }
 
     public int getXc() {
@@ -28,10 +29,25 @@ public class MineCell {
         return yc;
     }
 
+    public boolean isDestinationCell(Point point) {
+        return point.x == mineField.getGridViewSize() && point.y == mineField.getGridViewSize();
+    }
+
     public void draw(Graphics2D gc) {
-        gc.fillRect(xc, yc, height, height);
+        gc.fillRect(xc, yc, size, size);
+
         gc.setColor(Color.BLACK);
-        gc.drawRect(xc, yc, height, height);
+        if (isDestinationCell(point)) {
+            gc.setColor(Color.GREEN);
+        }
+        gc.drawRect(xc, yc, size, size);
+        gc.setColor(Color.BLACK);
+        String count = String.valueOf(mineField.getNumNeighboringMines(point));
+        if (mineField.showSolution() && !mineField.isAMine(point)) {
+            gc.drawString(count, xc + size / 3, yc + (2 * size) / 3);
+        } else {
+            gc.drawString("?", xc + size / 3, yc + (2 * size) / 3);
+        }
     }
 
 

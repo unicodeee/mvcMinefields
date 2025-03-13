@@ -9,16 +9,28 @@ import java.util.Set;
 
 public class MineField extends Model {
 
-    private final int gridViewSize = 3;  // grid to be displayed is 20 x 20
-    private final int actualGrid = gridViewSize + 1; // design choice to handle check mines
-    private final int percentMined = 50;
+    private final int gridViewSize = 20;  // grid to be displayed is 20 x 20
+    private final int percentMined = 5;
+    private final int cellSize = 15;
+
     private final int mineAmount = gridViewSize * gridViewSize * percentMined / 100;
-    private Set<Point> mines = new HashSet<>(mineAmount );
-    private final boolean steppedOnMine = true;
+    private Set<Point> mines = new HashSet<>(mineAmount);
+
+
+    private boolean showMineCount = true; // DEBUG: flip to true to debug
+    private final boolean showMineSolution = true;
 
 
     private final Color color = Color.GRAY;
     private final Color mineColor = Color.RED;
+
+    public int getCellSize() {
+        return cellSize;
+    }
+
+    public boolean showSolution() {
+        return showMineCount;
+    }
 
 
     public Color getColor() {
@@ -37,15 +49,78 @@ public class MineField extends Model {
         return mines;
     }
 
-    public  MineField() {
+    public MineField() {
         super();
         seedMines();
     }
 
+    public boolean isAMine(Point point) {
+        return mines.contains(point);
+    }
+
+    public int getNumNeighboringMines(Point current) {
+        int count = 0;
+        Point tempt;
+
+        tempt = new Point(current);
+        tempt.x -= 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.x += 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.y -= 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.y += 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.x -= 1;
+        tempt.y -= 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.x += 1;
+        tempt.y += 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.x += 1;
+        tempt.y -= 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        tempt = new Point(current);
+        tempt.x -= 1;
+        tempt.y += 1;
+        if (isAMine(tempt)) {
+            count++;
+        }
+
+        return count;
+    }
+
     public Point seedMine() {
         Random random = new Random();
-        int row = random.nextInt(gridViewSize ) + 1;
-        int col = random.nextInt(gridViewSize ) + 1;
+        int row = random.nextInt(gridViewSize) + 1;
+        int col = random.nextInt(gridViewSize) + 1;
         Point p = new Point(row, col);
 
 
@@ -69,7 +144,7 @@ public class MineField extends Model {
         }
     }
 
-    public boolean didStepOnMine() {
-        return steppedOnMine;
+    public boolean showMineSolution() {
+        return showMineSolution;
     }
 }

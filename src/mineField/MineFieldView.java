@@ -6,20 +6,21 @@ import java.awt.*;
 
 public class MineFieldView extends View {
 
-    private final int eachCellSize = 10;
+    private final int cellSize;
 
     public MineFieldView(MineField mineField) {
         super(mineField);
+        this.cellSize = mineField.getCellSize();
     }
 
-    public void drawCellAtCordinates(Graphics gc, Point point, Color color){
+    public void drawCellAtCordinates(Graphics gc, Point point, Color color) {
         MineField mineField = (MineField) model;
         gc.setColor(color);
-        MineCell cell = new MineCell(mineField, point.x * eachCellSize, point.y * eachCellSize, eachCellSize);
+        MineCell cell = new MineCell(mineField, point, cellSize);
         cell.draw((Graphics2D) gc);
     }
 
-    public void drawMineBoard(Graphics gc, Color color){
+    public void drawMineBoard(Graphics gc, Color color) {
         MineField mineField = (MineField) model;
         int boardSize = mineField.getGridViewSize() + 1;
 
@@ -30,9 +31,9 @@ public class MineFieldView extends View {
         }
     }
 
-    public void drawMines(Graphics gc, Color color){
+    public void drawMines(Graphics gc, Color color) {
         MineField mineField = (MineField) model;
-        for (Point mineCordinates: mineField.getMines()) {
+        for (Point mineCordinates : mineField.getMines()) {
             drawCellAtCordinates(gc, mineCordinates, color);
         }
     }
@@ -46,8 +47,7 @@ public class MineFieldView extends View {
         drawMineBoard(gc, cellBaseColor);
 
 
-        // TO DO: condition here to handle display bomb
-        if (mineField.didStepOnMine()) {
+        if (mineField.showMineSolution()) {
             drawMines(gc, mineColor);
         }
 

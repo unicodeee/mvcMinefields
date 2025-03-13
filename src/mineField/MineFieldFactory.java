@@ -4,8 +4,6 @@ import mvc.AppFactory;
 import mvc.Command;
 import mvc.Model;
 import mvc.View;
-import stopLight.Stoplight;
-import stopLight.StoplightView;
 
 public class MineFieldFactory implements AppFactory {
 
@@ -16,20 +14,20 @@ public class MineFieldFactory implements AppFactory {
 
     @Override
     public String[] getEditCommands() {
-        return new String[] {"Northwest", "North", "Northeast", "West", "East", "Southwest", "South", "Southeast"};
+        return new String[]{"Northwest", "North", "Northeast", "West", "East", "Southwest", "South", "Southeast"};
     }
 
     @Override
     public String getHelp() {
         return
                 "Northwest: Move northwest\n" +
-                "North: Move north\n" +
-                "Northeast: Move northeast\n" +
-                "West: Move West\n" +
-                "East: Move east\n" +
-                "Southwest: Move southwest\n" +
-                "South: Move south\n" +
-                "Southeast: Move southeast\n";
+                        "North: Move north\n" +
+                        "Northeast: Move northeast\n" +
+                        "West: Move West\n" +
+                        "East: Move east\n" +
+                        "Southwest: Move southwest\n" +
+                        "South: Move south\n" +
+                        "Southeast: Move southeast\n";
     }
 
     @Override
