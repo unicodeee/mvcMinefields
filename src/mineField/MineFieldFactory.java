@@ -4,6 +4,8 @@ import mvc.AppFactory;
 import mvc.Command;
 import mvc.Model;
 import mvc.View;
+import stopLight.Stoplight;
+import stopLight.StoplightView;
 
 public class MineFieldFactory implements AppFactory {
 
@@ -42,7 +44,7 @@ public class MineFieldFactory implements AppFactory {
 
     @Override
     public View makeView(Model m) {
-        return null;
+        return new MineFieldView((MineField) m);
     }
 
     @Override
