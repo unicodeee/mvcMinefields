@@ -1,5 +1,7 @@
 package mineField;
 
+import mvc.Model;
+import mvc.Utilities;
 import mvc.View;
 
 import java.awt.*;
@@ -54,4 +56,14 @@ public class MineFieldView extends View {
 //        drawCellAtCordinates(gc, new Point(20, 20), Color.GREEN); // DEBUG: use this to debug mine cell
 
     }
+
+    /*public void setModel(Model newModel) {
+        super.setModel(newModel);
+        initView();
+        repaint();
+    }
+
+    private void initView() {
+
+    }*/
 }
