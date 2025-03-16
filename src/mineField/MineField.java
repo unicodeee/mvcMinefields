@@ -16,8 +16,8 @@ public class MineField extends Model {
 
     private boolean done = false;
 
-    private MineCell currentCell = new MineCell(this,new Point(1,1), cellSize);
-    private Point currentPosition = new Point(1,1);
+    private MineCell currentCell = new MineCell(this,new Point(0,0), cellSize);
+    private Point currentPosition = new Point(0,0);
 
     private final int mineAmount = gridViewSize * gridViewSize * percentMined / 100;
     private Set<Point> mines = new HashSet<>(mineAmount);
@@ -181,7 +181,7 @@ public class MineField extends Model {
                 currentPosition.x += 1;
                 break;
         }
-        if (currentPosition.x > gridViewSize || currentPosition.x < 1 || currentPosition.y > gridViewSize || currentPosition.y < 1) { currentPosition = oldPosition; Utilities.error(new Exception("Out of bounds")); return; }
+        if (currentPosition.x > gridViewSize || currentPosition.x < 0 || currentPosition.y > gridViewSize || currentPosition.y < 0) { currentPosition = oldPosition; Utilities.error(new Exception("Out of bounds")); return; }
         currentCell = new MineCell(this, currentPosition, cellSize);
         System.out.println(currentPosition.x + " and " + currentPosition.y);
         if (isAMine(currentPosition)) {Utilities.error(new Exception("Stepped on a mine, you lost!")); done = true;}
