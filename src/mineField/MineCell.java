@@ -30,7 +30,7 @@ public class MineCell {
     }
 
     public boolean isDestinationCell(Point point) {
-        return point.x == mineField.getGridViewSize() && point.y == mineField.getGridViewSize();
+        return point.x == mineField.getGridViewSize() - 1 && point.y == mineField.getGridViewSize() - 1;
     }
 
     public void draw(Graphics2D gc) {

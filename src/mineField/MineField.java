@@ -119,8 +119,8 @@ public class MineField extends Model {
 
     public Point seedMine() {
         Random random = new Random();
-        int row = random.nextInt(gridViewSize) + 1;
-        int col = random.nextInt(gridViewSize) + 1;
+        int row = random.nextInt(gridViewSize);
+        int col = random.nextInt(gridViewSize);
         Point p = new Point(row, col);
 
 
