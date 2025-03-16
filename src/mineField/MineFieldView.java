@@ -12,7 +12,7 @@ public class MineFieldView extends View {
 
     public MineFieldView(MineField mineField) {
         super(mineField);
-        this.cellSize = mineField.getCellSize();
+        adjustCellSize();
 
         // Add a listener to handle component resizing
         this.addComponentListener(new ComponentAdapter() {
@@ -72,7 +72,8 @@ public class MineFieldView extends View {
         if (mineField.showMineSolution()) {
             drawMines(gc, mineColor);
         }
-//        drawCellAtCoordinates(gc, new Point(mineField.getGridViewSize() , mineField.getGridViewSize() /2), Color.GREEN); // DEBUG: use this to debug mine cell
+//        drawCellAtCoordinates(gc, new Point(0, 0), Color.GREEN); // DEBUG: use this to debug mine cell
+//        drawCellAtCoordinates(gc, new Point(19, 19), Color.GREEN); // DEBUG: use this to debug mine cell
 
     }
 }

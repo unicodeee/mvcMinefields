@@ -11,7 +11,7 @@ public class MineField extends Model {
 
     private final int gridViewSize = 20;  // grid to be displayed is 20 x 20
     private final int percentMined = 5;
-    private final int cellSize = 15;
+
 
     private final int mineAmount = gridViewSize * gridViewSize * percentMined / 100;
     private Set<Point> mines = new HashSet<>(mineAmount);
@@ -24,9 +24,6 @@ public class MineField extends Model {
     private final Color color = Color.GRAY;
     private final Color mineColor = Color.RED;
 
-    public int getCellSize() {
-        return cellSize;
-    }
 
     public boolean showSolution() {
         return showMineCount;
