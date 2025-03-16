@@ -78,14 +78,4 @@ public class MineFieldView extends View {
 //        drawCellAtCoordinates(gc, new Point(19, 19), Color.GREEN); // DEBUG: use this to debug mine cell
 
     }
-
-    /*public void setModel(Model newModel) {
-        super.setModel(newModel);
-        initView();
-        repaint();
-    }
-
-    private void initView() {
-
-    }*/
 }

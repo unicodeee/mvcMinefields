@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import static mineField.MoveCommand.Heading.NORTH;
-
 public class MineField extends Model {
 
     private final int gridViewSize = 20;  // grid to be displayed is 20 x 20
@@ -18,8 +16,8 @@ public class MineField extends Model {
 
     private boolean done = false;
 
-    private MineCell currentPosition = new MineCell(this,new Point(1,1), cellSize);
-    private Point newPosition = new Point(currentPosition.getXc(), currentPosition.getYc());
+    private MineCell currentCell = new MineCell(this,new Point(1,1), cellSize);
+    private Point currentPosition = new Point(1,1);
 
     private final int mineAmount = gridViewSize * gridViewSize * percentMined / 100;
     private Set<Point> mines = new HashSet<>(mineAmount);
@@ -157,32 +155,37 @@ public class MineField extends Model {
         if (done) {
             Utilities.inform("Cannot move, game is finished.");
         }
+
+        //store old position in case it's needed to revert back to after out of bounds exception
+        Point oldPosition = new Point(currentPosition);
+
         switch (heading) {
-            case NORTH: newPosition.y -= 1; break;
+            case NORTH: currentPosition.y -= 1; break;
             case NORTHWEST:
-                newPosition.y -= 1;
-                newPosition.x -= 1;
+                currentPosition.y -= 1;
+                currentPosition.x -= 1;
                 break;
             case NORTHEAST:
-                newPosition.y -= 1;
-                newPosition.x += 1;
+                currentPosition.y -= 1;
+                currentPosition.x += 1;
                 break;
-            case WEST: newPosition.x -= 1; break;
-            case EAST: newPosition.x += 1; break;
+            case WEST: currentPosition.x -= 1; break;
+            case EAST: currentPosition.x += 1; break;
             case SOUTHWEST:
-                newPosition.y += 1;
-                newPosition.x -= 1;
+                currentPosition.y += 1;
+                currentPosition.x -= 1;
                 break;
-            case SOUTH: newPosition.y += 1; break;
+            case SOUTH: currentPosition.y += 1; break;
             case SOUTHEAST:
-                newPosition.y += 1;
-                newPosition.x += 1;
+                currentPosition.y += 1;
+                currentPosition.x += 1;
                 break;
         }
-        currentPosition = new MineCell(this, newPosition, cellSize);
-        if (newPosition.x > gridViewSize || newPosition.y > gridViewSize) {Utilities.error(new Exception("Out of bounds"));}
-        if (isAMine(newPosition)) {Utilities.error(new Exception("Stepped on a mine, you lost!")); done = true;}
-        else if (currentPosition.isDestinationCell(newPosition)){Utilities.error(new Exception("Destination reached, you won!")); done = true;}
+        if (currentPosition.x > gridViewSize || currentPosition.x < 1 || currentPosition.y > gridViewSize || currentPosition.y < 1) { currentPosition = oldPosition; Utilities.error(new Exception("Out of bounds")); return; }
+        currentCell = new MineCell(this, currentPosition, cellSize);
+        System.out.println(currentPosition.x + " and " + currentPosition.y);
+        if (isAMine(currentPosition)) {Utilities.error(new Exception("Stepped on a mine, you lost!")); done = true;}
+        else if (currentCell.isDestinationCell(currentPosition)){Utilities.error(new Exception("Destination reached, you won!")); done = true;}
         changed();
     }
 }
