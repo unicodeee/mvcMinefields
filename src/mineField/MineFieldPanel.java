@@ -18,6 +18,7 @@ public class MineFieldPanel extends AppPanel {
     private JButton southeast;
     public MineFieldPanel(AppFactory factory) {
         super(factory);
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 2, 10, 40));
         northwest = new JButton("NW");
         north = new JButton("N");
         northeast = new JButton("NE");
@@ -34,14 +35,15 @@ public class MineFieldPanel extends AppPanel {
         southwest.addActionListener(this);
         south.addActionListener(this);
         southeast.addActionListener(this);
-        controlPanel.add(northwest);
-        controlPanel.add(north);
-        controlPanel.add(northeast);
-        controlPanel.add(west);
-        controlPanel.add(east);
-        controlPanel.add(southwest);
-        controlPanel.add(south);
-        controlPanel.add(southeast);
+        buttonPanel.add(northwest);
+        buttonPanel.add(north);
+        buttonPanel.add(northeast);
+        buttonPanel.add(west);
+        buttonPanel.add(east);
+        buttonPanel.add(southwest);
+        buttonPanel.add(south);
+        buttonPanel.add(southeast);
+        controlPanel.add(buttonPanel);
     }
 
     public static void main(String[] args) {
