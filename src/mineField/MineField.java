@@ -149,40 +149,69 @@ public class MineField extends Model {
         return showMineSolution;
     }
 
-    public void move(MoveCommand.Heading heading) {
+    public void move(MoveCommand.Heading heading) throws Exception {
         if (done) {
-            Utilities.inform("Cannot move, game is finished.");
+            throw new GameIsFinishedException("Cannot move, game is finished.");
         }
 
-        //store old position in case it's needed to revert back to after out of bounds exception
-        Point oldPosition = new Point(currentPosition);
+        Point newPosition = new Point(currentPosition);
 
         switch (heading) {
-            case NORTH: currentPosition.y -= 1; break;
+            case NORTH: newPosition.y -= 1; break;
             case NORTHWEST:
-                currentPosition.y -= 1;
-                currentPosition.x -= 1;
+                newPosition.y -= 1;
+                newPosition.x -= 1;
                 break;
             case NORTHEAST:
-                currentPosition.y -= 1;
-                currentPosition.x += 1;
+                newPosition.y -= 1;
+                newPosition.x += 1;
                 break;
-            case WEST: currentPosition.x -= 1; break;
-            case EAST: currentPosition.x += 1; break;
+            case WEST: newPosition.x -= 1; break;
+            case EAST: newPosition.x += 1; break;
             case SOUTHWEST:
-                currentPosition.y += 1;
-                currentPosition.x -= 1;
+                newPosition.y += 1;
+                newPosition.x -= 1;
                 break;
-            case SOUTH: currentPosition.y += 1; break;
+            case SOUTH: newPosition.y += 1; break;
             case SOUTHEAST:
-                currentPosition.y += 1;
-                currentPosition.x += 1;
+                newPosition.y += 1;
+                newPosition.x += 1;
                 break;
         }
-        if (currentPosition.x > gridViewSize || currentPosition.x < 0 || currentPosition.y > gridViewSize || currentPosition.y < 0) { currentPosition = oldPosition; Utilities.error(new Exception("Out of bounds")); return; }
-        System.out.println(currentPosition.x + " and " + currentPosition.y);
-        if (isAMine(currentPosition)) {Utilities.error(new Exception("Stepped on a mine, you lost!")); done = true;}
-        else if (currentPosition.x == getGridViewSize() - 1 && currentPosition.y == getGridViewSize() - 1){Utilities.error(new Exception("Destination reached, you won!")); done = true;}
+
+        if (newPosition.x > gridViewSize - 1 || newPosition.x < 0 || newPosition.y > gridViewSize - 1 || newPosition.y < 0) {
+            throw new OutOfBoundsException("Out of bounds");
+        }
+        currentPosition = newPosition;
+        if (isAMine(currentPosition)) {
+            done = true;
+            throw new IsAMineException("Stepped on a mine, you lost!");
+        }
+        else if (currentPosition.x == gridViewSize - 1 && currentPosition.y == gridViewSize - 1) {
+            done = true;
+            throw new DestinationReachedException("Destination reached, you won!");
+        }
         changed();
+    }
+
+    public class GameIsFinishedException extends Exception {
+        public GameIsFinishedException(String message) {
+            super(message);
+        }
+    }
+    public class OutOfBoundsException extends Exception {
+        public OutOfBoundsException(String message) {
+            super(message);
+        }
+    }
+    public class IsAMineException extends Exception {
+        public IsAMineException(String message) {
+            super(message);
+        }
+    }
+    public class DestinationReachedException extends Exception {
+        public DestinationReachedException(String message) {
+            super(message);
+        }
     }
 }

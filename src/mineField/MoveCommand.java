@@ -2,6 +2,7 @@ package mineField;
 
 import mvc.Command;
 import mvc.Model;
+import mvc.Utilities;
 
 public class MoveCommand extends Command {
     Heading heading;
@@ -11,8 +12,12 @@ public class MoveCommand extends Command {
     }
 
     public void execute() {
-        MineField minefield = (MineField)model;
-        minefield.move(heading);
+        try {
+            MineField minefield = (MineField) model;
+            minefield.move(heading);
+        } catch (Exception e) {
+            Utilities.error(e.getMessage());
+        }
     }
 
     public enum Heading {
