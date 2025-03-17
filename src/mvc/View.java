@@ -14,6 +14,7 @@ public class View extends JPanel implements Subscriber {
       model.unsubscribe(this);
       model = newModel;
       model.subscribe(this);
+      repaint();
     }
 
     @Override
