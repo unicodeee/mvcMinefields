@@ -149,7 +149,7 @@ public class MineField extends Model {
         return showMineSolution;
     }
 
-    public void move(MoveCommand.Heading heading) throws Exception {
+    public void move(MoveCommand.Heading heading) throws GameIsFinishedException, OutOfBoundsException, IsAMineException, DestinationReachedException {
         if (done) {
             throw new GameIsFinishedException("Cannot move, game is finished.");
         }

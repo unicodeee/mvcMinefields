@@ -15,7 +15,7 @@ public class MoveCommand extends Command {
         try {
             MineField minefield = (MineField) model;
             minefield.move(heading);
-        } catch (Exception e) {
+        } catch (MineField.GameIsFinishedException | MineField.OutOfBoundsException | MineField.IsAMineException | MineField.DestinationReachedException e) {
             Utilities.error(e.getMessage());
         }
     }
