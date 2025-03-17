@@ -43,7 +43,7 @@ public class MineCell {
         gc.drawRect(xc, yc, size, size);
         gc.setColor(Color.BLACK);
         String count = String.valueOf(mineField.getNumNeighboringMines(point));
-        if (mineField.showSolution() && !mineField.isAMine(point)) {
+        if ((mineField.showSolution() || mineField.isReached(point)) && !mineField.isAMine(point)) {
             gc.drawString(count, xc + size / 3, yc + (2 * size) / 3);
         } else {
             gc.drawString("?", xc + size / 3, yc + (2 * size) / 3);

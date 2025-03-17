@@ -4,7 +4,9 @@ import mvc.Model;
 import mvc.Utilities;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -19,15 +21,15 @@ public class MineField extends Model {
 
     private final int mineAmount = gridViewSize * gridViewSize * percentMined / 100;
     private Set<Point> mines = new HashSet<>(mineAmount);
+    private List<Point> path = new ArrayList<>();
 
-
-    private boolean showMineCount = true; // DEBUG: flip to true to debug
-    private final boolean showMineSolution = true;
-
+    private boolean showMineCount = false; // DEBUG: flip to true to debug
+    private final boolean showMineSolution = false;
 
     private final Color color = Color.GRAY;
     private final Color mineColor = Color.RED;
-
+    private final Color pathColor = Color.WHITE;
+    private final Color currentPositionColor = Color.CYAN;
 
     public boolean showSolution() {
         return showMineCount;
@@ -42,6 +44,14 @@ public class MineField extends Model {
         return mineColor;
     }
 
+    public Color getPathColor() {
+        return pathColor;
+    }
+
+    public Color getCurrentPositionColor() {
+        return currentPositionColor;
+    }
+
     public int getGridViewSize() {
         return gridViewSize;
     }
@@ -50,13 +60,25 @@ public class MineField extends Model {
         return mines;
     }
 
+    public List<Point> getPath() {
+        return path;
+    }
+    public Point getCurrentPosition() {
+        return currentPosition;
+    }
+
     public MineField() {
         super();
         seedMines();
+        path.add(new Point(0, 0));
     }
 
     public boolean isAMine(Point point) {
         return mines.contains(point);
+    }
+
+    public boolean isReached(Point point) {
+        return path.contains(point);
     }
 
     public int getNumNeighboringMines(Point current) {
@@ -191,6 +213,7 @@ public class MineField extends Model {
             done = true;
             throw new DestinationReachedException("Destination reached, you won!");
         }
+        path.add(new Point(currentPosition));
         changed();
     }
 
