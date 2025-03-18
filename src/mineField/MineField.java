@@ -24,12 +24,12 @@ public class MineField extends Model {
     private List<Point> path = new ArrayList<>();
 
     private boolean showMineCount = false; // DEBUG: flip to true to debug
-    private final boolean showMineSolution = false;
+    private boolean showMineSolution = true;
 
     private final Color color = Color.GRAY;
     private final Color mineColor = Color.RED;
-    private final Color pathColor = Color.WHITE;
-    private final Color currentPositionColor = Color.CYAN;
+    private final Color pathColor = Color.LIGHT_GRAY;
+    private final Color currentPositionColor = Color.LIGHT_GRAY;
 
     public boolean showSolution() {
         return showMineCount;
@@ -162,8 +162,18 @@ public class MineField extends Model {
 
     public void seedMines() {
         mines.clear();
+
+        Point edgeCase1 = new Point(0, 0);
+        Point edgeCase2 = new Point(19, 19);
         for (int i = 0; i < mineAmount; i++) {
             mines.add(seedMine());
+        }
+
+        if (mines.contains(edgeCase1)) {
+            mines.remove(edgeCase1);
+        }
+        if (mines.contains(edgeCase2)) {
+            mines.remove(edgeCase2);
         }
     }
 
@@ -213,7 +223,10 @@ public class MineField extends Model {
             done = true;
             throw new DestinationReachedException("Destination reached, you won!");
         }
-        path.add(new Point(currentPosition));
+
+        if (!isAMine(currentPosition)) {
+            path.add(new Point(currentPosition));
+        }
         changed();
     }
 
@@ -230,11 +243,14 @@ public class MineField extends Model {
     public class IsAMineException extends Exception {
         public IsAMineException(String message) {
             super(message);
+            showMineSolution = true;
+            // changed();
         }
     }
     public class DestinationReachedException extends Exception {
         public DestinationReachedException(String message) {
             super(message);
+            showMineSolution = true;
         }
     }
 }

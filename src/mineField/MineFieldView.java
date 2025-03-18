@@ -57,11 +57,11 @@ public class MineFieldView extends View {
 			}
 		}
 	}
-
+  
 	public void drawMines(Graphics gc, Color color) {
 		MineField mineField = (MineField) model;
-		for (Point mineCoordinates : mineField.getMines()) {
-			drawCellAtCoordinates(gc, mineCoordinates, color);
+		for (Point mine : mineField.getMines()) {
+			drawCellAtCoordinates(gc, mine, color);
 		}
 	}
 
@@ -82,15 +82,22 @@ public class MineFieldView extends View {
 		Color mineColor = mineField.getMineColor();
 		Color pathColor = mineField.getPathColor();
 		Color currentPositionColor = mineField.getCurrentPositionColor();
-
-
+		
 		drawMineBoard(gc, cellBaseColor);
 
-		if (mineField.showMineSolution()) {
-			drawMines(gc, mineColor);
-		}
 		drawPath(gc, pathColor);
+
 		drawCellAtCoordinates(gc, mineField.getCurrentPosition(), currentPositionColor);
+
+		if (mineField.showMineSolution()) {
+      Point lastMine = mineField.getCurrentPosition();
+			drawMines(gc, mineColor);
+      if (mineField.getMines().contains(lastMine)) {
+        drawCellAtCoordinates(gc, lastMine, mineColor);
+      } else {
+        drawCellAtCoordinates(gc, lastMine, currentPositionColor);
+      }
+		}
 		// drawCellAtCoordinates(gc, new Point(0, 0), Color.GREEN); // DEBUG: use this
 		// to debug mine cell
 		// drawCellAtCoordinates(gc, new Point(19, 19), Color.GREEN); // DEBUG: use this

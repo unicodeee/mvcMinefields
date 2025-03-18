@@ -14,20 +14,20 @@ public class MineFieldFactory implements AppFactory {
 
     @Override
     public String[] getEditCommands() {
-        return new String[]{"Northwest", "North", "Northeast", "West", "East", "Southwest", "South", "Southeast"};
+        return new String[]{"NW", "N", "NE", "W", "E", "SW", "S", "SE"};
     }
 
     @Override
     public String getHelp() {
         return
-                "Northwest: Move northwest\n" +
-                        "North: Move north\n" +
-                        "Northeast: Move northeast\n" +
-                        "West: Move west\n" +
-                        "East: Move east\n" +
-                        "Southwest: Move southwest\n" +
-                        "South: Move south\n" +
-                        "Southeast: Move southeast\n";
+                "NW: Move northwest\n" +
+                        "N: Move north\n" +
+                        "NE: Move northeast\n" +
+                        "W: Move west\n" +
+                        "E: Move east\n" +
+                        "SW: Move southwest\n" +
+                        "S: Move south\n" +
+                        "SE: Move southeast\n";
     }
 
     @Override
