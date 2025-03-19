@@ -24,7 +24,7 @@ public class MineField extends Model {
     private List<Point> path = new ArrayList<>();
 
     private boolean showMineCount = false; // DEBUG: flip to true to debug
-    private boolean showMineSolution = true;
+    private boolean showMineSolution = false;
 
     private final Color color = Color.GRAY;
     private final Color mineColor = Color.RED;
