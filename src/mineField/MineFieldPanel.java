@@ -19,7 +19,7 @@ public class MineFieldPanel extends AppPanel {
     private JButton southeast;
 
     public MineFieldPanel(AppFactory factory) {
-        super(factory);
+        super(factory, 700, 400);
         northwest = new JButton("NW");
         north = new JButton("N");
         northeast = new JButton("NE");
@@ -48,7 +48,7 @@ public class MineFieldPanel extends AppPanel {
         controlPanel.add(southeast);
 
         // Set layout for the control panel
-        controlPanel.setLayout(new GridLayout(4, 2, 20, 20));
+        controlPanel.setLayout(new GridLayout(4, 2, 40, 40));
         controlPanel.setBorder(new EmptyBorder(20,20,20,20));
     }
 

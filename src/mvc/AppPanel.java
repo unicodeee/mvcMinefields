@@ -34,6 +34,11 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
+    public AppPanel(AppFactory factory, int width, int height) {
+      this(factory);
+      frame.setSize(width, height);
+  }
+
     public void display() { frame.setVisible(true); }
 
     public void update() {  /* override in extensions if needed */ }
