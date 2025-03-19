@@ -4,6 +4,7 @@ import mvc.AppFactory;
 import mvc.AppPanel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MineFieldPanel extends AppPanel {
@@ -47,7 +48,8 @@ public class MineFieldPanel extends AppPanel {
         controlPanel.add(southeast);
 
         // Set layout for the control panel
-        controlPanel.setLayout(new GridLayout(4, 2));
+        controlPanel.setLayout(new GridLayout(4, 2, 20, 20));
+        controlPanel.setBorder(new EmptyBorder(20,20,20,20));
     }
 
     public static void main(String[] args) {
