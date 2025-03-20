@@ -49,7 +49,7 @@ public class MineFieldPanel extends AppPanel {
 
         // Set layout for the control panel
         controlPanel.setLayout(new GridLayout(4, 2, 40, 40));
-        controlPanel.setBorder(new EmptyBorder(20,20,20,20));
+        controlPanel.setBorder(new EmptyBorder(40,40,40,40));
     }
 
     public static void main(String[] args) {
